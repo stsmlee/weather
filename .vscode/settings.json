@@ -4,6 +4,6 @@
     },
     "eslint.validate": ["javascript"],
     "eslint.workingDirectories": [
-      "weather/src"
+      { "mode": "auto" }
   ]
 }
