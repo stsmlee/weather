@@ -4,6 +4,6 @@
     },
     "eslint.validate": ["javascript"],
     "eslint.workingDirectories": [
-      { "mode": "auto" }
+      ".src/"
   ]
 }
