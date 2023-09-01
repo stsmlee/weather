@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* #header {
+  font-size: 1.2em;
+} */
+
+#header-div {
+  font-size: 1.3em;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1080px;
+  min-width: 700px;
+  height: 65px;
+  padding: 20px 80px 20px 80px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: stretch;
+}
+
+#location-form {
+  height: 100%;
+  line-height: 1em;
+}
+
+#location-form input[type="text"], input[type="submit"] {
+  height: 100%;
+}
+
+
+
