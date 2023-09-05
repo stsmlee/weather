@@ -8,9 +8,24 @@
     <div id="header-div">
       <div id="header">Weather? I hardly know her!</div>
       <div><form id="location-form">
-        <input type="text" id="location" placeholder="What's her location?" size="25" required>
-        <input type="submit" id="submit">
+        <input type="text" id="location-input" placeholder="What's her location?" size="25" required>
+        <input type="submit">
       </form></div>
+    </div>
+    <div id="container">
+      <div id="location-div">
+        <div id="location-name"></div>
+        <div id="location-region"></div>
+        <div id="location-country"></div>
+      </div>
+      <div id="current-div">
+        <div id="current-condition"></div>
+        <div id="current-temp"></div>
+        <div id="current-feels-temp"></div>
+        <img id="current-icon" src="">
+      </div>
+      <div id="alert-div"></div>
+      <div id="forecast-div"></div>
     </div>
     <script src="main.js"></script>
   </body>

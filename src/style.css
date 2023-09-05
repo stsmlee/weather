@@ -29,5 +29,12 @@
   height: 100%;
 }
 
+#container {
+  padding: 20px 80px 20px 80px;
+  max-width: 1080px;
+  min-width: 700px;
+  margin: auto;
+}
+
 
 
