@@ -139,3 +139,7 @@ input:checked + .slider::before {
   font-size: .8em;
 }
 
+#forecast-div {
+  display: flex;
+  flex-direction: column;
+}
