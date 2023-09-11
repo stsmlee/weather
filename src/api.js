@@ -59,14 +59,9 @@ const aqiCode = {
   5: ['#a37eb8', 'Very Unhealthy'],
   6: ['#a17584', 'Hazardous'],
 };
-const todayCondition = document.getElementById('today-condition');
-const todayIcon = document.getElementById('today-icon');
-const todayLoHi = document.getElementById('today-lo-hi');
-const todayRain = document.getElementById('today-chance-of-rain');
-const todaySnow = document.getElementById('today-chance-of-snow');
-const todayHumidity = document.getElementById('today-humidity');
 const next24Hours = document.getElementById('next-24-hours-div');
-
+const day0date = document.getElementById('day-0-date');
+const day0LoHi = document.getElementById('day-0-lo-hi');
 const day1date = document.getElementById('day-1-date');
 const day1LoHi = document.getElementById('day-1-lo-hi');
 const day2date = document.getElementById('day-2-date');
@@ -77,14 +72,14 @@ function updateUnits() {
     currentTemp.textContent = `Current Temp: ${data.current.temp_c}°C, but feels like: ${data.current.feelslike_c}°C`;
     currentWind.textContent = `Wind/Gust/Direction: ${data.current.wind_kph}kph / ${data.current.gust_kph}kph / ${data.current.wind_dir}`;
     visibility.textContent = `Visibility: ${data.current.vis_km}km`;
-    todayLoHi.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_c}°C / Hi: ${data.forecast.forecastday[0].day.maxtemp_c}°C`;
+    day0LoHi.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_c}°C / Hi: ${data.forecast.forecastday[0].day.maxtemp_c}°C`;
     day1LoHi.textContent = `Lo: ${data.forecast.forecastday[1].day.mintemp_c}°C / Hi: ${data.forecast.forecastday[1].day.maxtemp_c}°C`;
     day2LoHi.textContent = `Lo: ${data.forecast.forecastday[2].day.mintemp_c}°C / Hi: ${data.forecast.forecastday[2].day.maxtemp_c}°C`;
   } else {
     currentTemp.textContent = `Current Temp: ${data.current.temp_f}°F, but feels like: ${data.current.feelslike_f}°F`;
     currentWind.textContent = `Wind/Gust/Direction: ${data.current.wind_mph}mph / ${data.current.gust_mph}mph / ${data.current.wind_dir}`;
     visibility.textContent = `Visibility: ${data.current.vis_miles}mi`;
-    todayLoHi.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_f}°F / Hi: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
+    day0LoHi.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_f}°F / Hi: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
     day1LoHi.textContent = `Lo: ${data.forecast.forecastday[1].day.mintemp_f}°F / Hi: ${data.forecast.forecastday[1].day.maxtemp_f}°F`;
     day2LoHi.textContent = `Lo: ${data.forecast.forecastday[2].day.mintemp_f}°F / Hi: ${data.forecast.forecastday[2].day.maxtemp_f}°F`;
   }
@@ -94,16 +89,26 @@ unitSwitch.addEventListener('click', () => {
   if (data) updateUnits();
 });
 
+function setIcon(currentData, image) {
+  const isDay = currentData.is_day;
+  const iconNum = currentData.condition.icon.slice(-7);
+  const iconEl = image;
+  if (isDay) {
+    iconEl.src = `../weather_icons/day/${iconNum}`;
+  } else iconEl.src = `../weather_icons/night/${iconNum}`;
+}
+
 function updateForecast(idx) {
   const condition = document.getElementById(`day-${idx}-condition`);
   const precip = document.getElementById(`day-${idx}-chance-of-precip`);
   const icon = document.getElementById(`day-${idx}-icon`);
-  condition.textContent = data.forecast.forecastday[idx].day.condition.text;
+  const currentData = data.forecast.forecastday[idx].day;
+  condition.textContent = currentData.condition.text;
   icon.src = `../weather_icons/day/${data.forecast.forecastday[
     idx
   ].day.condition.icon.slice(-7)}`;
-  const rainChance = data.forecast.forecastday[idx].day.daily_chance_of_rain;
-  const snowChance = data.forecast.forecastday[idx].day.daily_chance_of_snow;
+  const rainChance = currentData.daily_chance_of_rain;
+  const snowChance = currentData.daily_chance_of_snow;
   let percent;
   if (rainChance > snowChance) percent = rainChance;
   else percent = snowChance;
@@ -122,9 +127,11 @@ function update24HourForecast(start) {
       currentDay += 1;
     }
     let formattedHour = currentHour;
+    const hourData = data.forecast.forecastday[currentDay].hour[currentHour];
     if (currentHour < 10) formattedHour = `0${currentHour}`;
     newHourDiv.textContent = formattedHour;
-    // data.forecast.forecastday[currentDay].hour[currentHour].time;
+    const condition = document.createElement('div');
+    condition.textContent = hourData.condition.text;
     next24Hours.appendChild(newHourDiv);
     currentHour += 1;
   }
@@ -144,8 +151,7 @@ function updateDisplay() {
   locationDiv.textContent = `${data.location.name}, ${data.location.region} (${data.location.country})`;
   currentTimeDiv.textContent = `last updated ${currentTime}`;
   currentCondition.textContent = `Current Conditions: ${data.current.condition.text}`;
-  const isDay = data.current.is_day;
-  const iconNum = data.current.condition.icon.slice(-7);
+  setIcon(data.current, currentIcon);
   currentHumidity.textContent = `Humidity: ${data.current.humidity}%`;
   uvLabel.textContent = 'UV index:';
   let currentUV = data.current.uv;
@@ -158,24 +164,11 @@ function updateDisplay() {
   aqiLabel.textContent = 'Air quality:';
   aqiRating.style.backgroundColor = currentAQI[0];
   aqiRating.textContent = currentAQI[1];
-  if (isDay) {
-    currentIcon.src = `../weather_icons/day/${iconNum}`;
-  } else currentIcon.src = `../weather_icons/night/${iconNum}`;
-  todayCondition.textContent = `Today's Conditions: ${data.forecast.forecastday[0].day.condition.text}`;
-  const todayIconNum =
-    data.forecast.forecastday[0].day.condition.icon.slice(-7);
-  if (isDay) {
-    todayIcon.src = `../weather_icons/day/${todayIconNum}`;
-  } else currentIcon.src = `../weather_icons/night/${todayIconNum}`;
-  todayHumidity.textContent = `Average humidity: ${data.forecast.forecastday[0].day.avghumidity}%`;
-  const todayRainChance = data.forecast.forecastday[0].day.daily_chance_of_rain;
-  const todaySnowChance = data.forecast.forecastday[0].day.daily_chance_of_snow;
-  if (todayRainChance > 0)
-    todayRain.textContent = `Chance of rain: ${todayRainChance}%`;
-  if (todaySnowChance > 0)
-    todaySnow.textContent = `Chance of snow: ${todaySnowChance}%`;
 
   update24HourForecast(currentHour);
+
+  day0date.textContent = 'Today';
+  updateForecast(0);
 
   if (currentDate.getDay() + 1 < 7) {
     day1date.textContent = weekdaysShort[currentDate.getDay() + 1];
