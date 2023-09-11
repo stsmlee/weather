@@ -110,6 +110,18 @@ function updateForecast(idx) {
   if (percent > 0) precip.textContent = `${percent}%`;
 }
 
+function update24HourForecast(start) {
+  next24Hours.replaceChildren();
+  const currentHour = start;
+  const currentDay = 0;
+  for (let i = 0; i < 1; i += 1) {
+    const newHourDiv = document.createElement('div');
+    newHourDiv.textContent =
+      data.forecast.forecastday[currentDay].hour[currentHour];
+    next24Hours.appendChild(newHourDiv);
+  }
+}
+
 function updateDisplay() {
   const currentEpoch = data.current.last_updated_epoch;
   const currentDate = new Date(currentEpoch * 1000);
@@ -155,7 +167,7 @@ function updateDisplay() {
   if (todaySnowChance > 0)
     todaySnow.textContent = `Chance of snow: ${todaySnowChance}%`;
 
-  next24Hours.replaceChildren();
+  update24HourForecast(currentHour);
 
   if (currentDate.getDay() + 1 < 7) {
     day1date.textContent = weekdaysShort[currentDate.getDay() + 1];
