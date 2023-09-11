@@ -112,13 +112,21 @@ function updateForecast(idx) {
 
 function update24HourForecast(start) {
   next24Hours.replaceChildren();
-  const currentHour = start;
-  const currentDay = 0;
-  for (let i = 0; i < 1; i += 1) {
+  next24Hours.textContent = 'Looking ahead at your next 24 hours:';
+  let currentHour = start;
+  let currentDay = 0;
+  for (let i = 0; i < 25; i += 1) {
     const newHourDiv = document.createElement('div');
-    newHourDiv.textContent =
-      data.forecast.forecastday[currentDay].hour[currentHour];
+    if (currentHour === 24) {
+      currentHour = 0;
+      currentDay += 1;
+    }
+    let formattedHour = currentHour;
+    if (currentHour < 10) formattedHour = `0${currentHour}`;
+    newHourDiv.textContent = formattedHour;
+    // data.forecast.forecastday[currentDay].hour[currentHour].time;
     next24Hours.appendChild(newHourDiv);
+    currentHour += 1;
   }
 }
 
