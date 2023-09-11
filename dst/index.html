@@ -23,7 +23,7 @@
       <div id='current-time-div'></div>
       <div id="current-div">
         <div id="current-condition"></div>
-        <img id="current-icon" src="">
+        <div id="current-icon-div"><img id="current-icon" src="" class="icon"></div>
         <div id="current-temp"></div>
         <div id="current-humidity"></div>
         <div id="current-wind"></div>
@@ -45,23 +45,32 @@
         <div id="day-0">
           <div id="day-0-date"></div>
           <div id="day-0-condition"></div>
-          <img id="day-0-icon" src="">
-          <div id="day-0-lo-hi"></div>
-          <div id="day-0-chance-of-precip"></div>
+          <div class="icon-container">
+            <img id="day-0-icon" src="" class="icon">
+            <span id="day-0-chance-of-precip" class="chance"></span>
+          </div>
+          <div id="day-0-lo"></div>
+          <div id="day-0-hi"></div>
         </div>
         <div id="day-1">
           <div id="day-1-date"></div>
           <div id="day-1-condition"></div>
-          <img id="day-1-icon" src="">
-          <div id="day-1-lo-hi"></div>
-          <div id="day-1-chance-of-precip"></div>
+          <div class="icon-container">
+            <img id="day-1-icon" src="" class="icon">
+            <span id="day-1-chance-of-precip" class="chance"></span>
+          </div>
+          <div id="day-1-lo"></div>
+          <div id="day-1-hi"></div>
         </div>
         <div id="day-2">
           <div id="day-2-date"></div>
           <div id="day-2-condition"></div>
-          <img id="day-2-icon" src="">
-          <div id="day-2-chance-of-precip"></div>
-          <div id="day-2-lo-hi"></div>
+          <div class="icon-container">
+            <img id="day-2-icon" src="" class="icon">
+            <span id="day-2-chance-of-precip" class="chance"></span>
+          </div>
+          <div id="day-2-lo"></div>
+          <div id="day-2-hi"></div>
         </div>
       </div>
     </div>

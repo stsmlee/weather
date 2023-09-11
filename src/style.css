@@ -139,7 +139,29 @@ input:checked + .slider::before {
   font-size: .8em;
 }
 
+#current-icon-div {
+  height: 64px;
+}
+
 #forecast-div {
   display: flex;
-  flex-direction: column;
+  gap: 20px;
+}
+
+#forecast-div div {
+  text-align: center;
+  width: 160px;
+  white-space: nowrap;
+}
+
+.icon-container {
+  position: relative;
+}
+
+.icon-container .chance {
+  position: absolute;
+  top: 60%;
+  left: 56%;
+  font-size: .7em;
+  /* transform: translate(-50%, -50%); */
 }

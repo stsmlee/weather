@@ -61,27 +61,36 @@ const aqiCode = {
 };
 const next24Hours = document.getElementById('next-24-hours-div');
 const day0date = document.getElementById('day-0-date');
-const day0LoHi = document.getElementById('day-0-lo-hi');
+const day0Lo = document.getElementById('day-0-lo');
+const day0Hi = document.getElementById('day-0-hi');
 const day1date = document.getElementById('day-1-date');
-const day1LoHi = document.getElementById('day-1-lo-hi');
+const day1Lo = document.getElementById('day-1-lo');
+const day1Hi = document.getElementById('day-1-hi');
 const day2date = document.getElementById('day-2-date');
-const day2LoHi = document.getElementById('day-2-lo-hi');
+const day2Lo = document.getElementById('day-2-lo');
+const day2Hi = document.getElementById('day-2-hi');
 
 function updateUnits() {
   if (unitSwitch.checked) {
     currentTemp.textContent = `Current Temp: ${data.current.temp_c}°C, but feels like: ${data.current.feelslike_c}°C`;
     currentWind.textContent = `Wind/Gust/Direction: ${data.current.wind_kph}kph / ${data.current.gust_kph}kph / ${data.current.wind_dir}`;
     visibility.textContent = `Visibility: ${data.current.vis_km}km`;
-    day0LoHi.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_c}°C / Hi: ${data.forecast.forecastday[0].day.maxtemp_c}°C`;
-    day1LoHi.textContent = `Lo: ${data.forecast.forecastday[1].day.mintemp_c}°C / Hi: ${data.forecast.forecastday[1].day.maxtemp_c}°C`;
-    day2LoHi.textContent = `Lo: ${data.forecast.forecastday[2].day.mintemp_c}°C / Hi: ${data.forecast.forecastday[2].day.maxtemp_c}°C`;
+    day0Lo.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_c}°C`;
+    day0Hi.textContent = `Hi: ${data.forecast.forecastday[0].day.maxtemp_c}°C`;
+    day1Lo.textContent = `Lo: ${data.forecast.forecastday[1].day.mintemp_c}°C`;
+    day1Hi.textContent = `Hi: ${data.forecast.forecastday[1].day.maxtemp_c}°C`;
+    day2Lo.textContent = `Lo: ${data.forecast.forecastday[2].day.mintemp_c}°C`;
+    day2Hi.textContent = `Hi: ${data.forecast.forecastday[2].day.maxtemp_c}°C`;
   } else {
     currentTemp.textContent = `Current Temp: ${data.current.temp_f}°F, but feels like: ${data.current.feelslike_f}°F`;
     currentWind.textContent = `Wind/Gust/Direction: ${data.current.wind_mph}mph / ${data.current.gust_mph}mph / ${data.current.wind_dir}`;
     visibility.textContent = `Visibility: ${data.current.vis_miles}mi`;
-    day0LoHi.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_f}°F / Hi: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
-    day1LoHi.textContent = `Lo: ${data.forecast.forecastday[1].day.mintemp_f}°F / Hi: ${data.forecast.forecastday[1].day.maxtemp_f}°F`;
-    day2LoHi.textContent = `Lo: ${data.forecast.forecastday[2].day.mintemp_f}°F / Hi: ${data.forecast.forecastday[2].day.maxtemp_f}°F`;
+    day0Lo.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_f}°F`;
+    day0Hi.textContent = `Hi: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
+    day1Lo.textContent = `Lo: ${data.forecast.forecastday[1].day.mintemp_f}°F`;
+    day1Hi.textContent = `Hi: ${data.forecast.forecastday[1].day.maxtemp_f}°F`;
+    day2Lo.textContent = `Lo: ${data.forecast.forecastday[2].day.mintemp_f}°F`;
+    day2Hi.textContent = `Hi: ${data.forecast.forecastday[2].day.maxtemp_f}°F`;
   }
 }
 
