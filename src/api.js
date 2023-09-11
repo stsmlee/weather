@@ -98,7 +98,7 @@ function setIcon(currentData, image) {
   } else iconEl.src = `../weather_icons/night/${iconNum}`;
 }
 
-function updateForecast(idx) {
+function update3DayForecast(idx) {
   const condition = document.getElementById(`day-${idx}-condition`);
   const precip = document.getElementById(`day-${idx}-chance-of-precip`);
   const icon = document.getElementById(`day-${idx}-icon`);
@@ -168,12 +168,12 @@ function updateDisplay() {
   update24HourForecast(currentHour);
 
   day0date.textContent = 'Today';
-  updateForecast(0);
+  update3DayForecast(0);
 
   if (currentDate.getDay() + 1 < 7) {
     day1date.textContent = weekdaysShort[currentDate.getDay() + 1];
   } else day1date.textContent = weekdaysShort[0];
-  updateForecast(1);
+  update3DayForecast(1);
 
   const day2day = currentDate.getDay() + 2;
   if (day2day < 7) {
@@ -181,7 +181,7 @@ function updateDisplay() {
   } else if (day2day === 7) {
     day2date.textContent = weekdaysShort[0];
   } else day2date.textContent = weekdaysShort[1];
-  updateForecast(2);
+  update3DayForecast(2);
 
   updateUnits();
 }
