@@ -30,7 +30,9 @@ const currentTimeDiv = document.getElementById('current-time-div');
 const currentCondition = document.getElementById('current-condition');
 const currentIcon = document.getElementById('current-icon');
 const currentTempF = document.getElementById('current-temp-f');
+const feelsF = document.getElementById('feels-f');
 const currentTempC = document.getElementById('current-temp-c');
+const feelsC = document.getElementById('feels-c');
 const currentHumidity = document.getElementById('current-humidity');
 const uvLabel = document.getElementById('uv-label');
 const uvIndex = document.getElementById('uv-index');
@@ -185,16 +187,19 @@ function updateDisplay() {
   const currentTime = `${weekdays[currentDate.getDay()]}, ${
     months[currentDate.getMonth()]
   } ${currentDate.getDate()}, ${currentDate.getFullYear()} at ${formattedHour}:${currentMinutes}`;
-  locationDiv.textContent = `${data.location.name}, ${data.location.region} (${data.location.country})`;
+  const name = data.location.name;
+  const region = data.location.region;
+  const country = data.location.country;
+  if (region.length > 0)
+    locationDiv.textContent = `${name}, ${region} (${country})`;
+  else locationDiv.textContent = `${name} (${country})`;
   currentTimeDiv.textContent = `last updated ${currentTime}`;
   currentCondition.textContent = `${data.current.condition.text}`;
   setIcon(data.current, currentIcon);
-  currentTempC.textContent = `${Math.round(
-    data.current.temp_c,
-  )}°C, but feels like ${Math.round(data.current.feelslike_c)}°C`;
-  currentTempF.textContent = `${Math.round(
-    data.current.temp_f,
-  )}°F, but feels like ${Math.round(data.current.feelslike_f)}°F`;
+  currentTempC.textContent = `${Math.round(data.current.temp_c)}°`;
+  feelsC.textContent = `Feels like: ${Math.round(data.current.feelslike_c)}°C`;
+  currentTempF.textContent = `${Math.round(data.current.temp_f)}°`;
+  feelsF.textContent = `Feels like: ${Math.round(data.current.feelslike_f)}°F`;
   currentHumidity.textContent = `Humidity: ${data.current.humidity}%`;
   uvLabel.textContent = 'UV index:';
   let currentUV = data.current.uv;

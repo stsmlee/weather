@@ -126,12 +126,20 @@ input:checked + .slider::before {
   line-height: 1.5em;
 }
 
-#location-div, #current-time-div, #current-condition, #current-icon-div, #current-temp-c, #current-temp-f {
+#location-div, #current-time-div, #current-condition, #current-icon-div {
   position: relative;
   width: fit-content;
   font-size: 1.1em;
   left: 50%;
   transform: translateX(-50%);
+}
+
+#current-temp-c, #current-temp-f {
+  position: relative;
+  width: fit-content;
+  font-size: 1.2em;
+  left: 51%;
+  transform: translateX(-50%)
 }
 
 #current-time-div {
