@@ -29,7 +29,8 @@ const locationDiv = document.getElementById('location-div');
 const currentTimeDiv = document.getElementById('current-time-div');
 const currentCondition = document.getElementById('current-condition');
 const currentIcon = document.getElementById('current-icon');
-const currentTemp = document.getElementById('current-temp');
+const currentTempF = document.getElementById('current-temp-f');
+const currentTempC = document.getElementById('current-temp-c');
 const currentHumidity = document.getElementById('current-humidity');
 const uvLabel = document.getElementById('uv-label');
 const uvIndex = document.getElementById('uv-index');
@@ -48,7 +49,6 @@ const uvCode = {
 };
 const currentWind = document.getElementById('current-wind');
 const currentCloud = document.getElementById('current-cloud');
-const visibility = document.getElementById('visibility');
 const aqiLabel = document.getElementById('aqi-label');
 const aqiRating = document.getElementById('aqi-rating');
 const aqiCode = {
@@ -61,36 +61,34 @@ const aqiCode = {
 };
 const next24Hours = document.getElementById('next-24-hours-div');
 const day0date = document.getElementById('day-0-date');
-const day0Lo = document.getElementById('day-0-lo');
-const day0Hi = document.getElementById('day-0-hi');
 const day1date = document.getElementById('day-1-date');
-const day1Lo = document.getElementById('day-1-lo');
-const day1Hi = document.getElementById('day-1-hi');
 const day2date = document.getElementById('day-2-date');
-const day2Lo = document.getElementById('day-2-lo');
-const day2Hi = document.getElementById('day-2-hi');
 
 function updateUnits() {
   if (unitSwitch.checked) {
-    currentTemp.textContent = `Current Temp: ${data.current.temp_c}°C, but feels like: ${data.current.feelslike_c}°C`;
     currentWind.textContent = `Wind/Gust/Direction: ${data.current.wind_kph}kph / ${data.current.gust_kph}kph / ${data.current.wind_dir}`;
-    visibility.textContent = `Visibility: ${data.current.vis_km}km`;
-    day0Lo.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_c}°C`;
-    day0Hi.textContent = `Hi: ${data.forecast.forecastday[0].day.maxtemp_c}°C`;
-    day1Lo.textContent = `Lo: ${data.forecast.forecastday[1].day.mintemp_c}°C`;
-    day1Hi.textContent = `Hi: ${data.forecast.forecastday[1].day.maxtemp_c}°C`;
-    day2Lo.textContent = `Lo: ${data.forecast.forecastday[2].day.mintemp_c}°C`;
-    day2Hi.textContent = `Hi: ${data.forecast.forecastday[2].day.maxtemp_c}°C`;
+    const fDivs = document.querySelectorAll('.f');
+    fDivs.forEach((el) => {
+      // eslint-disable-next-line no-param-reassign
+      el.style.display = 'none';
+    });
+    const cDivs = document.querySelectorAll('.c');
+    cDivs.forEach((el) => {
+      // eslint-disable-next-line no-param-reassign
+      el.style.display = 'block';
+    });
   } else {
-    currentTemp.textContent = `Current Temp: ${data.current.temp_f}°F, but feels like: ${data.current.feelslike_f}°F`;
     currentWind.textContent = `Wind/Gust/Direction: ${data.current.wind_mph}mph / ${data.current.gust_mph}mph / ${data.current.wind_dir}`;
-    visibility.textContent = `Visibility: ${data.current.vis_miles}mi`;
-    day0Lo.textContent = `Lo: ${data.forecast.forecastday[0].day.mintemp_f}°F`;
-    day0Hi.textContent = `Hi: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
-    day1Lo.textContent = `Lo: ${data.forecast.forecastday[1].day.mintemp_f}°F`;
-    day1Hi.textContent = `Hi: ${data.forecast.forecastday[1].day.maxtemp_f}°F`;
-    day2Lo.textContent = `Lo: ${data.forecast.forecastday[2].day.mintemp_f}°F`;
-    day2Hi.textContent = `Hi: ${data.forecast.forecastday[2].day.maxtemp_f}°F`;
+    const fDivs = document.querySelectorAll('.f');
+    fDivs.forEach((el) => {
+      // eslint-disable-next-line no-param-reassign
+      el.style.display = 'block';
+    });
+    const cDivs = document.querySelectorAll('.c');
+    cDivs.forEach((el) => {
+      // eslint-disable-next-line no-param-reassign
+      el.style.display = 'none';
+    });
   }
 }
 
@@ -113,20 +111,24 @@ function update3DayForecast(idx) {
   const icon = document.getElementById(`day-${idx}-icon`);
   const currentData = data.forecast.forecastday[idx].day;
   condition.textContent = currentData.condition.text;
-  icon.src = `../weather_icons/day/${data.forecast.forecastday[
-    idx
-  ].day.condition.icon.slice(-7)}`;
+  icon.src = `../weather_icons/day/${currentData.condition.icon.slice(-7)}`;
   const rainChance = currentData.daily_chance_of_rain;
   const snowChance = currentData.daily_chance_of_snow;
-  let percent;
-  if (rainChance > snowChance) percent = rainChance;
-  else percent = snowChance;
+  let percent = rainChance;
+  if (rainChance < snowChance) percent = snowChance;
   if (percent > 0) precip.textContent = `${percent}%`;
+  const loC = document.getElementById(`day-${idx}-lo-c`);
+  const hiC = document.getElementById(`day-${idx}-hi-c`);
+  const loF = document.getElementById(`day-${idx}-lo-f`);
+  const hiF = document.getElementById(`day-${idx}-hi-f`);
+  loC.textContent = `Lo: ${Math.round(currentData.mintemp_c)}°C`;
+  hiC.textContent = `Hi: ${Math.round(currentData.maxtemp_c)}°C`;
+  loF.textContent = `Lo: ${Math.round(currentData.mintemp_f)}°F`;
+  hiF.textContent = `Hi: ${Math.round(currentData.maxtemp_f)}°F`;
 }
 
 function update24HourForecast(start) {
   next24Hours.replaceChildren();
-  next24Hours.textContent = 'Looking ahead at your next 24 hours:';
   let currentHour = start;
   let currentDay = 0;
   for (let i = 0; i < 25; i += 1) {
@@ -138,9 +140,35 @@ function update24HourForecast(start) {
     let formattedHour = currentHour;
     const hourData = data.forecast.forecastday[currentDay].hour[currentHour];
     if (currentHour < 10) formattedHour = `0${currentHour}`;
-    newHourDiv.textContent = formattedHour;
+    const hour = document.createElement('div');
+    hour.textContent = formattedHour;
+    newHourDiv.appendChild(hour);
+
     const condition = document.createElement('div');
-    condition.textContent = hourData.condition.text;
+    condition.className = 'icon-container';
+    const icon = document.createElement('img');
+    icon.className = 'icon';
+    setIcon(hourData, icon);
+    condition.appendChild(icon);
+    const precip = document.createElement('span');
+    precip.className = 'chance';
+    const rainChance = hourData.chance_of_rain;
+    const snowChance = hourData.chance_of_snow;
+    let percent = rainChance;
+    if (rainChance < snowChance) percent = snowChance;
+    if (percent > 0) precip.textContent = `${percent}%`;
+    condition.appendChild(precip);
+    newHourDiv.appendChild(condition);
+
+    const tempF = document.createElement('div');
+    tempF.className = 'f';
+    tempF.textContent = `${Math.round(hourData.temp_f)}°F`;
+    const tempC = document.createElement('div');
+    tempC.className = 'c';
+    tempC.textContent = `${Math.round(hourData.temp_c)}°C`;
+    newHourDiv.appendChild(tempF);
+    newHourDiv.appendChild(tempC);
+
     next24Hours.appendChild(newHourDiv);
     currentHour += 1;
   }
@@ -159,8 +187,14 @@ function updateDisplay() {
   } ${currentDate.getDate()}, ${currentDate.getFullYear()} at ${formattedHour}:${currentMinutes}`;
   locationDiv.textContent = `${data.location.name}, ${data.location.region} (${data.location.country})`;
   currentTimeDiv.textContent = `last updated ${currentTime}`;
-  currentCondition.textContent = `Current Conditions: ${data.current.condition.text}`;
+  currentCondition.textContent = `${data.current.condition.text}`;
   setIcon(data.current, currentIcon);
+  currentTempC.textContent = `Current Temp: ${Math.round(
+    data.current.temp_c,
+  )}°C, but feels like: ${Math.round(data.current.feelslike_c)}°C`;
+  currentTempF.textContent = `Current Temp: ${Math.round(
+    data.current.temp_f,
+  )}°F, but feels like: ${Math.round(data.current.feelslike_f)}°F`;
   currentHumidity.textContent = `Humidity: ${data.current.humidity}%`;
   uvLabel.textContent = 'UV index:';
   let currentUV = data.current.uv;
@@ -173,7 +207,7 @@ function updateDisplay() {
   aqiLabel.textContent = 'Air quality:';
   aqiRating.style.backgroundColor = currentAQI[0];
   aqiRating.textContent = currentAQI[1];
-
+  document.getElementById('looking-ahead').style.display = 'block';
   update24HourForecast(currentHour);
 
   day0date.textContent = 'Today';

@@ -126,26 +126,46 @@ input:checked + .slider::before {
   line-height: 1.5em;
 }
 
-#aqi-rating, #uv-index {
-  padding: 1px 5px;
-  border-radius: 15px;
-}
-
-#location-div {
+#location-div, #current-time-div, #current-condition, #current-icon-div {
+  position: relative;
+  width: fit-content;
   font-size: 1.1em;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #current-time-div {
   font-size: .8em;
 }
 
+#current-condition {
+  font-size: 1em;
+}
+
 #current-icon-div {
   height: 64px;
 }
 
+#current-div div {
+  width: fit-content;
+}
+
+#current-div {
+  position: relative;
+  width: fit-content;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+#looking-ahead {
+  display: none;
+  text-align: center;
+}
+
 #forecast-div {
   display: flex;
-  gap: 20px;
+  gap: 30px;
+  justify-content: center;
 }
 
 #forecast-div div {
@@ -156,12 +176,42 @@ input:checked + .slider::before {
 
 .icon-container {
   position: relative;
+  height: 64px;
 }
 
 .icon-container .chance {
   position: absolute;
-  top: 60%;
-  left: 56%;
+  top: 10%;
+  left: 51%;
   font-size: .7em;
+  line-height: .7em;
   /* transform: translate(-50%, -50%); */
+}
+
+#aqi-rating, #uv-index {
+  padding: 1px 5px;
+  border-radius: 15px;
+}
+
+#next-24-hours-div {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  overflow-x: scroll;
+  /* padding-bottom: 10px; */
+  padding: 10px 0px;
+}
+
+#next-24-hours-div div {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+#next-24-hours-div .chance {
+  top: 10%;
+  left: 52%;
 }
