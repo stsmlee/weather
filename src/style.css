@@ -137,7 +137,8 @@ input:checked + .slider::before {
 #current-temp-c, #current-temp-f {
   position: relative;
   width: fit-content;
-  font-size: 1.2em;
+  font-size: 2em;
+  line-height: 2em;
   left: 51%;
   transform: translateX(-50%)
 }
