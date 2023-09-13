@@ -31,6 +31,7 @@ body {
   background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 34px;
 }
 
 .slider::before {
@@ -49,10 +50,10 @@ body {
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 50%;
 }
 
 input:checked + .slider {
-  /* background-color: #2196F3; */
   background-color: #b0b0b0;
 }
 
@@ -62,16 +63,6 @@ input:checked + .slider::before {
   transform: translateX(26px);
   content: "°C";
 }
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
 #header {
   white-space: nowrap;
 }
@@ -114,7 +105,6 @@ input:checked + .slider::before {
 #location-form input[type="text"]:invalid.err {
   border: 2px solid red;
   animation: skew-y-shake 0.1s ease-in-out 0s 2;
-  /* animation: skew-y-shake 0.2s ease-in-out 0s 2; */
   box-shadow: 0 0 0.3rem 0.1rem red;
 }
 
