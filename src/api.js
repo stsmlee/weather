@@ -209,7 +209,7 @@ function updateDisplay() {
   currentCloud.textContent = `Cloud coverage: ${data.current.cloud}%`;
   const usAQI = data.current.air_quality['us-epa-index'];
   const currentAQI = aqiCode[usAQI];
-  aqiLabel.textContent = 'Air quality:';
+  aqiLabel.textContent = 'AQI:';
   aqiRating.style.backgroundColor = currentAQI[0];
   aqiRating.textContent = currentAQI[1];
   document.getElementById('looking-ahead').style.display = 'block';
