@@ -190,6 +190,7 @@ input:checked + .slider::before {
 #aqi-rating, #uv-index {
   padding: 1px 5px;
   border-radius: 15px;
+  color: white;
 }
 
 #next-24-hours-div {
