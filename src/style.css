@@ -147,13 +147,14 @@ input:checked + .slider::before {
 
 #current-div div {
   width: fit-content;
+  line-height: 1.8em;
 }
 
 #current-div {
   position: relative;
   width: fit-content;
   left: 50%;
-  transform: translateX(-50%)
+  transform: translateX(-50%);
 }
 
 #looking-ahead {
@@ -188,7 +189,7 @@ input:checked + .slider::before {
 }
 
 #aqi-rating, #uv-index {
-  padding: 1px 5px;
+  padding: 2px 6px;
   border-radius: 15px;
   color: white;
 }
