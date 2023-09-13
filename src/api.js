@@ -66,7 +66,7 @@ const day2date = document.getElementById('day-2-date');
 
 function updateUnits() {
   if (unitSwitch.checked) {
-    currentWind.textContent = `Wind/Gust/Direction: ${data.current.wind_kph}kph / ${data.current.gust_kph}kph / ${data.current.wind_dir}`;
+    currentWind.textContent = `Wind/Gust: ${data.current.wind_kph}kph/${data.current.gust_kph}kph`;
     const fDivs = document.querySelectorAll('.f');
     fDivs.forEach((el) => {
       // eslint-disable-next-line no-param-reassign
@@ -78,7 +78,7 @@ function updateUnits() {
       el.style.display = 'block';
     });
   } else {
-    currentWind.textContent = `Wind/Gust/Direction: ${data.current.wind_mph}mph / ${data.current.gust_mph}mph / ${data.current.wind_dir}`;
+    currentWind.textContent = `Wind/Gust: ${data.current.wind_mph}mph/${data.current.gust_mph}mph`;
     const fDivs = document.querySelectorAll('.f');
     fDivs.forEach((el) => {
       // eslint-disable-next-line no-param-reassign
@@ -189,12 +189,12 @@ function updateDisplay() {
   currentTimeDiv.textContent = `last updated ${currentTime}`;
   currentCondition.textContent = `${data.current.condition.text}`;
   setIcon(data.current, currentIcon);
-  currentTempC.textContent = `Current Temp: ${Math.round(
+  currentTempC.textContent = `${Math.round(
     data.current.temp_c,
-  )}°C, but feels like: ${Math.round(data.current.feelslike_c)}°C`;
-  currentTempF.textContent = `Current Temp: ${Math.round(
+  )}°C, but feels like ${Math.round(data.current.feelslike_c)}°C`;
+  currentTempF.textContent = `${Math.round(
     data.current.temp_f,
-  )}°F, but feels like: ${Math.round(data.current.feelslike_f)}°F`;
+  )}°F, but feels like ${Math.round(data.current.feelslike_f)}°F`;
   currentHumidity.textContent = `Humidity: ${data.current.humidity}%`;
   uvLabel.textContent = 'UV index:';
   let currentUV = data.current.uv;

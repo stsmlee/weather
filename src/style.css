@@ -126,7 +126,7 @@ input:checked + .slider::before {
   line-height: 1.5em;
 }
 
-#location-div, #current-time-div, #current-condition, #current-icon-div {
+#location-div, #current-time-div, #current-condition, #current-icon-div, #current-temp-c, #current-temp-f {
   position: relative;
   width: fit-content;
   font-size: 1.1em;
