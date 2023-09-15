@@ -22,7 +22,7 @@ const weekdays = [
   'Friday',
   'Saturday',
 ];
-const weekdaysShort = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+// const weekdaysShort = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
 let data;
 const unitSwitch = document.getElementById('unit-switch');
 const locationDiv = document.getElementById('location-div');
@@ -219,16 +219,16 @@ function updateDisplay() {
   update3DayForecast(0);
 
   if (currentDate.getDay() + 1 < 7) {
-    day1date.textContent = weekdaysShort[currentDate.getDay() + 1];
-  } else day1date.textContent = weekdaysShort[0];
+    day1date.textContent = weekdays[currentDate.getDay() + 1];
+  } else day1date.textContent = weekdays[0];
   update3DayForecast(1);
 
   const day2day = currentDate.getDay() + 2;
   if (day2day < 7) {
-    day2date.textContent = weekdaysShort[day2day];
+    day2date.textContent = weekdays[day2day];
   } else if (day2day === 7) {
-    day2date.textContent = weekdaysShort[0];
-  } else day2date.textContent = weekdaysShort[1];
+    day2date.textContent = weekdays[0];
+  } else day2date.textContent = weekdays[1];
   update3DayForecast(2);
 
   updateUnits();
